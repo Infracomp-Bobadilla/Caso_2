@@ -16,17 +16,18 @@ public class Estructuras {
 		for (int i = 0; i < paginasRAM.length; i++) paginasRAM[i] = -1;
 
 		paginasProceso = new Integer[pagProc];
+		for (int i = 0; i < paginasProceso.length; i++) paginasProceso[i] = 0;
 
 		envejecimiento = new String[pagProc];
 		for (int i = 0; i < envejecimiento.length; i++) envejecimiento[i] = "000000000000000000000000000000";
 
 	}
 
-	public int darFallas () {
+	public synchronized int darFallas () {
 		return fallas;
 	}
 	
-	public boolean darStop() {
+	public synchronized boolean darStop() {
 		return stop;
 	}
 	
@@ -39,7 +40,9 @@ public class Estructuras {
 			envejecimiento[i] = "" + paginasProceso[i] + envejecimiento[i];
 			envejecimiento[i] = envejecimiento[i].substring(0, 29);
 		}
-		System.out.println("------------------------");
+		
+		// ... //
+		
 		for(int i = 0; i < envejecimiento.length; i++) System.out.println(i + ": " + envejecimiento[i]);
 		System.out.println("------------------------");
 	}
@@ -71,11 +74,16 @@ public class Estructuras {
 
 				paginasRAM[posPaginaMasVieja] = pagina;
 			}
-
-			for(int i = 0; i < paginasProceso.length; i++) paginasProceso[i] = 0;
-			for(int i = 0; i < paginasRAM.length; i++)	if (paginasRAM[i] != -1) paginasProceso[paginasRAM[i]] = 1;
 			
+			// ... //
+			
+			System.out.println("La página: " + pagina + " ~ Genero la falla núm: " + fallas);
+			System.out.println("------------------------");
+
 		}
+		
+		for(int i = 0; i < paginasProceso.length; i++) paginasProceso[i] = 0;
+		paginasProceso[pagina] = 1;
 
 	}
 }
