@@ -1,4 +1,3 @@
 # Caso_2
 
-Juan José Beltran -&-
-Santiago Bobadilla
+Juan José Beltran -&- Santiago Bobadilla
